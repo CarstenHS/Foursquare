@@ -14,7 +14,7 @@ public class Activity_Main extends AppCompatActivity implements I_View
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__main);
+        setContentView(R.layout.activity_main);
         presenter = new Presenter(this, getLoaderManager());
 
         EditText etSearch = (EditText) findViewById(R.id.etSearchString);

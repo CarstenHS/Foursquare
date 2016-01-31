@@ -1,7 +1,7 @@
 package csv.foursquare;
 
 import android.app.LoaderManager;
-import android.view.View;
+import android.content.Context;
 
 /**
  * Created by der_geiler on 29-01-2016.
@@ -11,14 +11,32 @@ public class Presenter
     private I_View view;
     private Model model;
 
-    public Presenter(I_View v, LoaderManager lm)
+    public Presenter(Object obj, LoaderManager lm)
     {
-        this.view = v;
-        this.model = new Model(lm);
+        this.view = (I_View)obj;
+        this.model = new Model(lm, (Context)obj);
+        model.query4Square("sushi");
     }
 
     public void searchStringChanged(String s)
     {
 
     }
+
+    /*
+    @Override
+    public void onConnected(Bundle bundle)
+    {
+        try
+        {
+            Thread.sleep(1000);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        int i = 0;
+        i++;
+    }
+*/
 }
