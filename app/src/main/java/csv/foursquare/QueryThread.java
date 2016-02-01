@@ -99,6 +99,7 @@ public class QueryThread extends Thread
                 {
                     e.printStackTrace();
                     Toast.makeText(query.getContext(), "ERROR: Wrong response from server!", Toast.LENGTH_SHORT).show();
+                    query.getListener().OnQueryResultReady(null);
                 }
             }
         }, new Response.ErrorListener()
