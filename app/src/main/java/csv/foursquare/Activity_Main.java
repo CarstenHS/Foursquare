@@ -30,7 +30,6 @@ public class Activity_Main extends AppCompatActivity implements I_View
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void afterTextChanged(Editable s) {}
         });

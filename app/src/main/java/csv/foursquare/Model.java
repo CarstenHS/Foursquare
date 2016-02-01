@@ -66,12 +66,6 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     }
 
     @Override
-    public void onConnectionSuspended(int i){}
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult){}
-
-    @Override
     public void OnQueryResultReady(List<Venue> venues)
     {
         --queryCount;
@@ -80,4 +74,8 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     }
     @Override
     public void OnQueryResultReady(){}
+    @Override
+    public void onConnectionSuspended(int i){}
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult){}
 }

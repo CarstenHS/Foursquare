@@ -33,12 +33,11 @@ public class Presenter implements OnQueryResultReadyCallbacks
     }
 
     @Override
-    public void OnQueryResultReady(List<Venue> venues){}
-
-    @Override
     public void OnQueryResultReady()
     {
         if(model.getQueryCount() == 0)
             view.setSearchLabel(strSearch);
     }
+    @Override
+    public void OnQueryResultReady(List<Venue> venues){}
 }
