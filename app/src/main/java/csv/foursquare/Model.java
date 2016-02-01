@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -45,6 +47,7 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         settings = ctx.getSharedPreferences("4square", 0);
         id = settings.getString("id", "");
         secret = settings.getString("secret", "");
+        onConnectionFailed(ConnectionResult.zzadR);
     }
 
     public int getQueryCount(){return queryCount;}
@@ -77,5 +80,8 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     @Override
     public void onConnectionSuspended(int i){}
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult){}
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+        Toast.makeText(ctx,"ERROR: Can't get a GPS fix!", Toast.LENGTH_SHORT).show();
+    }
 }

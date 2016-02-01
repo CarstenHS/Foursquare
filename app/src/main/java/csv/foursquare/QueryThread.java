@@ -1,6 +1,8 @@
 package csv.foursquare;
 
 import android.location.Location;
+import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +23,7 @@ import java.util.List;
 public class QueryThread extends Thread
 {
     private Query query;
+    private static final int OK = 200;
 
     public QueryThread(Query q){query = q;}
     @Override
@@ -46,33 +49,65 @@ public class QueryThread extends Thread
             {
                 try
                 {
-                    JSONArray ja = response.getJSONObject("response").getJSONArray("venues");
-                    String name;
-                    String address;
-                    int dist;
-                    for(int i = 0; i < ja.length(); i++)
+                    if(response.getJSONObject("meta").getInt("code") == OK)
                     {
-                        name = "";
-                        address = "";
-                        dist = -1;
-                        JSONObject  jo = ja.getJSONObject(i);
-                        try{name = jo.getString("name");}       catch (JSONException ignored){}
-                        try{jo = jo.getJSONObject("location");} catch (JSONException ignored){}
-                        try{address = jo.getString("address");} catch (JSONException ignored){}
-                        try{dist = jo.getInt("distance");}      catch (JSONException ignored){}
-                        venues.add(new Venue(name, address, dist));
+                        JSONArray ja = response.getJSONObject("response").getJSONArray("venues");
+                        String name;
+                        String address;
+                        int dist;
+                        for (int i = 0; i < ja.length(); i++)
+                        {
+                            name = "";
+                            address = "";
+                            dist = -1;
+                            JSONObject jo = ja.getJSONObject(i);
+                            try
+                            {
+                                name = jo.getString("name");
+                            } catch (JSONException ignored)
+                            {
+                            }
+                            try
+                            {
+                                jo = jo.getJSONObject("location");
+                            } catch (JSONException ignored)
+                            {
+                            }
+                            try
+                            {
+                                address = jo.getString("address");
+                            } catch (JSONException ignored)
+                            {
+                            }
+                            try
+                            {
+                                dist = jo.getInt("distance");
+                            } catch (JSONException ignored)
+                            {
+                            }
+                            venues.add(new Venue(name, address, dist));
+                        }
+                        query.getListener().OnQueryResultReady(venues);
                     }
-                    query.getListener().OnQueryResultReady(venues);
-                } catch (JSONException e)
+                    else
+                    {
+                        Toast.makeText(query.getContext(), "ERROR: Wrong response from server!", Toast.LENGTH_SHORT).show();
+                        query.getListener().OnQueryResultReady(null);
+                    }
+                }
+                catch (JSONException e)
                 {
                     e.printStackTrace();
+                    Toast.makeText(query.getContext(), "ERROR: Wrong response from server!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+        {
 
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                Toast.makeText(query.getContext(), "ERROR: Can't connect to the server!", Toast.LENGTH_SHORT).show();
                 query.getListener().OnQueryResultReady(null);
             }
         });
