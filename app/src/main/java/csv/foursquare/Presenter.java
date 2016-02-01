@@ -32,6 +32,11 @@ public class Presenter implements OnQueryResultReadyCallbacks
             view.setListviewVisibility(null);
     }
 
+    public void cleanup()
+    {
+        model.cleanup();
+    }
+
     @Override
     public void OnQueryResultReady()
     {

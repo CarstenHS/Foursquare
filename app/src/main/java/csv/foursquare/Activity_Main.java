@@ -46,4 +46,11 @@ public class Activity_Main extends AppCompatActivity implements I_View
     {
         ((ListView)findViewById(R.id.lvVenues)).setAdapter(adapter);
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        presenter.cleanup();
+    }
 }

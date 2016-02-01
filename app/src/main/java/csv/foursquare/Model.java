@@ -62,6 +62,14 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         ++queryCount;
     }
 
+    public void cleanup()
+    {
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.disconnect();
+        if(currentThread != null)
+            currentThread.interrupt();
+    }
+
     @Override
     public void onConnected(Bundle bundle)
     {
@@ -80,8 +88,5 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     @Override
     public void onConnectionSuspended(int i){}
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
-    {
-        Toast.makeText(ctx,"ERROR: Can't get a GPS fix!", Toast.LENGTH_SHORT).show();
-    }
+    public void onConnectionFailed(ConnectionResult connectionResult){}
 }
