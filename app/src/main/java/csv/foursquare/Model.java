@@ -3,11 +3,10 @@ package csv.foursquare;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 
-/*
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,27 +14,33 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-*/
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by der_geiler on 29-01-2016.
  */
-public class Model implements LoaderManager.LoaderCallbacks, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-    private LoaderManager loaderManager;
     private Context ctx;
     private GoogleApiClient mGoogleApiClient;
     private Location lastLoc;
 
-    public Model(LoaderManager lm, Context c)
+    // TODO: REmove
+    private String id;
+    private String secret;
+
+
+    public Model(Context c)
     {
-        loaderManager = lm;
-        loaderManager.initLoader(0, null, this);
         ctx = c;
 
         mGoogleApiClient = new GoogleApiClient.Builder(ctx)
@@ -45,6 +50,13 @@ public class Model implements LoaderManager.LoaderCallbacks, GoogleApiClient.Con
                 .build();
 
         mGoogleApiClient.connect();
+
+        /* Todo: Remove */
+        SharedPreferences settings = ctx.getSharedPreferences("4square", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        settings = ctx.getSharedPreferences("4square", 0);
+        id = settings.getString("id", "");
+        secret = settings.getString("secret", "");
     }
 
     public void query4Square(String s)
@@ -54,43 +66,44 @@ public class Model implements LoaderManager.LoaderCallbacks, GoogleApiClient.Con
 
         String url = "https://api.foursquare.com/v2/venues/search?";
         url += "ll=" + lat + "," + lon;
-        url += "&client_id=";
-        url += "&client_secret=";
+        url += "&client_id=" + id;
+        url += "&client_secret=" + secret;
         url += "&v=20140806";
         url += "&query=" + s;
 
-       // RequestQueue queue = Volley.newRequestQueue(ctx);
+        RequestQueue queue = Volley.newRequestQueue(ctx);
 
-        /*
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                try
                 {
-                    @Override
-                    public void onResponse(JSONObject response)
+                    List<Venue> venues = new ArrayList<>();
+                    JSONArray ja = response.getJSONObject("response").getJSONArray("venues");
+                    String name;
+                    String address;
+                    int dist;
+                    for(int i = 0; i < ja.length(); i++)
                     {
-                        String result = response.toString();
-                        result += "i";
+                        name = "";
+                        address = "";
+                        dist = -1;
+                        JSONObject  jo = ja.getJSONObject(i);
+                        try{name = jo.getString("name");}       catch (JSONException ignored){}
+                        try{jo = jo.getJSONObject("location");} catch (JSONException ignored){}
+                        try{address = jo.getString("address");} catch (JSONException ignored){}
+                        try{dist = jo.getInt("distance");}      catch (JSONException ignored){}
+                        venues.add(new Venue(name, address, dist));
                     }
-                }, new Response.ErrorListener() {
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        int i = 0;
-                        i++;
-                    }
-                });
-                */
-/*
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        String result = response.toString();
-                        result += "i";
-                    }
-                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
@@ -99,31 +112,14 @@ public class Model implements LoaderManager.LoaderCallbacks, GoogleApiClient.Con
             }
         });
 
-        queue.add(stringRequest);
-        */
+        queue.add(jsObjRequest);
     }
-
-    public void searchStringChanged(String s)
-    {
-        loaderManager.restartLoader(0, null, this);
-    }
-
-    @Override
-    public Loader onCreateLoader(int id, Bundle args)
-    {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader loader, Object data){}
-
-    @Override
-    public void onLoaderReset(Loader loader){}
 
     @Override
     public void onConnected(Bundle bundle)
     {
         lastLoc = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        query4Square("sushi");
     }
 
     @Override
@@ -131,4 +127,21 @@ public class Model implements LoaderManager.LoaderCallbacks, GoogleApiClient.Con
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult){}
+
+    public class Venue
+    {
+        String name;
+        String address;
+        int distance;
+
+        public Venue(String n, String a, int d)
+        {
+            name = n;
+            address = a;
+            distance = d;
+        }
+        public String getName(){return name;}
+        public String getAddress(){return address;}
+        public int getDist(){return distance;}
+    }
 }

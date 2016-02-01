@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class Activity_Main extends AppCompatActivity implements I_View
 {
@@ -15,9 +16,11 @@ public class Activity_Main extends AppCompatActivity implements I_View
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        presenter = new Presenter(this, getLoaderManager());
-
+        presenter = new Presenter(this);
         EditText etSearch = (EditText) findViewById(R.id.etSearchString);
+
+        ListView listView = (ListView) findViewById(R.id.lvVenues);
+        listView.setAdapter(new VenueAdapter(this.getApplicationContext()));
 
         etSearch.addTextChangedListener(new TextWatcher()
         {

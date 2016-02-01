@@ -11,11 +11,11 @@ public class Presenter
     private I_View view;
     private Model model;
 
-    public Presenter(Object obj, LoaderManager lm)
+    public Presenter(Object obj)
     {
         this.view = (I_View)obj;
-        this.model = new Model(lm, (Context)obj);
-        model.query4Square("sushi");
+        this.model = new Model((Context)obj);
+        //model.query4Square("sushi");
     }
 
     public void searchStringChanged(String s)
