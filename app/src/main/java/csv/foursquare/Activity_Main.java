@@ -20,7 +20,7 @@ public class Activity_Main extends AppCompatActivity implements I_View
         EditText etSearch = (EditText) findViewById(R.id.etSearchString);
 
         ListView listView = (ListView) findViewById(R.id.lvVenues);
-        listView.setAdapter(new VenueAdapter(this.getApplicationContext()));
+        listView.setAdapter(VenueAdapter.getInstance());
 
         etSearch.addTextChangedListener(new TextWatcher()
         {

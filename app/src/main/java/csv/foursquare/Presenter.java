@@ -1,7 +1,8 @@
 package csv.foursquare;
 
-import android.app.LoaderManager;
 import android.content.Context;
+
+import java.util.List;
 
 /**
  * Created by der_geiler on 29-01-2016.
@@ -15,12 +16,11 @@ public class Presenter
     {
         this.view = (I_View)obj;
         this.model = new Model((Context)obj);
-        //model.query4Square("sushi");
     }
 
     public void searchStringChanged(String s)
     {
-
+        model.query4Square(s);
     }
 
     /*
