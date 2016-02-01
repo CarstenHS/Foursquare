@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class Activity_Main extends AppCompatActivity implements I_View
 {
@@ -19,14 +20,8 @@ public class Activity_Main extends AppCompatActivity implements I_View
         presenter = new Presenter(this);
         EditText etSearch = (EditText) findViewById(R.id.etSearchString);
 
-        ListView listView = (ListView) findViewById(R.id.lvVenues);
-        listView.setAdapter(VenueAdapter.getInstance());
-
         etSearch.addTextChangedListener(new TextWatcher()
         {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
@@ -34,9 +29,22 @@ public class Activity_Main extends AppCompatActivity implements I_View
             }
 
             @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
             public void afterTextChanged(Editable s) {}
         });
     }
 
+    @Override
+    public void setSearchLabel(String text)
+    {
+        ((TextView)findViewById(R.id.etSearchLabel)).setText(text);
+    }
 
+    @Override
+    public void setListviewVisibility(VenueAdapter adapter)
+    {
+        ((ListView)findViewById(R.id.lvVenues)).setAdapter(adapter);
+    }
 }

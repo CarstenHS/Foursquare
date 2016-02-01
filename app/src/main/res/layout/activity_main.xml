@@ -12,13 +12,17 @@
 
         <TableRow>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="Search: "
-                android:layout_weight="0.3"/>
+                android:textColor="#000000"
+                android:textSize="18dip"
+                android:textStyle="bold"
+                android:layout_weight="0.3"
+                android:id="@+id/etSearchLabel"/>
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.7"
                 android:id="@+id/etSearchString"
@@ -28,7 +32,7 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="2"
+                android:layout_weight="1"
                 android:id="@+id/lvVenues">
             </ListView>
         </TableRow>

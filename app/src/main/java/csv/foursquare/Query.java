@@ -13,11 +13,11 @@ public class Query
     private String secret;
     private Context ctx;
     private String query;
-    private OnQueryResultReadyListener listener;
+    private OnQueryResultReadyCallbacks listener;
 
     public Query(Location l, String id, String secret,
                  Context ctx, String queryStr,
-                 OnQueryResultReadyListener listener)
+                 OnQueryResultReadyCallbacks listener)
     {
         this.lastLoc = l;
         this.id = id;
@@ -31,5 +31,5 @@ public class Query
     public String getSecret(){return secret;}
     public Context getContext(){return ctx;}
     public String getQuery(){return query;}
-    public OnQueryResultReadyListener getListener(){return listener;}
+    public OnQueryResultReadyCallbacks getListener(){return listener;}
 }

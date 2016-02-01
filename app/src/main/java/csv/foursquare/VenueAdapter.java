@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by der_geiler on 31-01-2016.
@@ -29,8 +27,11 @@ public class VenueAdapter extends BaseAdapter
     }
     public void updateData(List<Venue> data)
     {
-        this.data = data;
-        notifyDataSetChanged();
+        if(data != null)
+        {
+            this.data = data;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
