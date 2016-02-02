@@ -41,7 +41,7 @@ public class QueryThread extends Thread
         url += "&query=" + query.getQuery();
 
         final List<Venue> venues = new ArrayList<>();
-        RequestQueue queue = Volley.newRequestQueue(query.getContext());
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>()
         {
             @Override
@@ -97,7 +97,6 @@ public class QueryThread extends Thread
                 }
                 catch (JSONException e)
                 {
-                    e.printStackTrace();
                     Toast.makeText(query.getContext(), "ERROR: Wrong response from server!", Toast.LENGTH_SHORT).show();
                     query.getListener().OnQueryResultReady(null);
                 }
@@ -112,7 +111,6 @@ public class QueryThread extends Thread
                 query.getListener().OnQueryResultReady(null);
             }
         });
-
-        queue.add(jsObjRequest);
+        csv.foursquare.RequestQueue.getInstance().add(jsObjRequest);
     }
 }

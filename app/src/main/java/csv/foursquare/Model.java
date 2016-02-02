@@ -20,17 +20,14 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     private GoogleApiClient mGoogleApiClient;
     private Location lastLoc;
     private Thread currentThread;
-    private int queryCount = 0;
-    private OnQueryResultReadyCallbacks listener;
 
     // TODO: REmove
     private String id;
     private String secret;
 
-    public Model(Context c, OnQueryResultReadyCallbacks listener)
+    public Model(Context c)
     {
         ctx = c;
-        this.listener = listener;
 
         mGoogleApiClient = new GoogleApiClient.Builder(ctx)
                 .addConnectionCallbacks(this)
@@ -41,6 +38,7 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         mGoogleApiClient.connect();
 
         VenueAdapter.getInstance().init(ctx);
+        RequestQueue.getInstance().init(ctx);
 
         /* Todo: Remove */
         SharedPreferences settings = ctx.getSharedPreferences("4square", 0);
@@ -49,16 +47,16 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         secret = settings.getString("secret", "");
     }
 
-    public int getQueryCount(){return queryCount;}
     public void query4Square(String s)
     {
         Query q = new Query(lastLoc, id, secret, ctx, s, this);
         if(currentThread != null)
             currentThread.interrupt();
 
+        RequestQueue.getInstance().cancel();
+
         currentThread = new QueryThread(q);
         currentThread.start();
-        ++queryCount;
     }
 
     public void cleanup()
@@ -78,9 +76,7 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     @Override
     public void OnQueryResultReady(List<Venue> venues)
     {
-        --queryCount;
         VenueAdapter.getInstance().updateData(venues);
-        listener.OnQueryResultReady();
     }
     @Override
     public void OnQueryResultReady(){}

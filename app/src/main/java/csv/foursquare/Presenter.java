@@ -7,17 +7,15 @@ import java.util.List;
 /**
  * Created by der_geiler on 29-01-2016.
  */
-public class Presenter implements OnQueryResultReadyCallbacks
+public class Presenter
 {
     private I_View view;
     private Model model;
-    private static final String strSearch       = "Search: ";
-    private static final String strSearching    = "Searching.. ";
 
     public Presenter(Object obj)
     {
         this.view = (I_View)obj;
-        this.model = new Model((Context)obj, this);
+        this.model = new Model((Context)obj);
     }
 
     public void searchStringChanged(String s)
@@ -26,7 +24,6 @@ public class Presenter implements OnQueryResultReadyCallbacks
         {
             view.setListviewVisibility(VenueAdapter.getInstance());
             model.query4Square(s);
-            view.setSearchLabel(strSearching);
         }
         else
             view.setListviewVisibility(null);
@@ -36,13 +33,4 @@ public class Presenter implements OnQueryResultReadyCallbacks
     {
         model.cleanup();
     }
-
-    @Override
-    public void OnQueryResultReady()
-    {
-        if(model.getQueryCount() == 0)
-            view.setSearchLabel(strSearch);
-    }
-    @Override
-    public void OnQueryResultReady(List<Venue> venues){}
 }
