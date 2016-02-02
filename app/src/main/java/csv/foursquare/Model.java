@@ -42,7 +42,6 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
 
         /* Todo: Remove */
         SharedPreferences settings = ctx.getSharedPreferences("4square", 0);
-        settings = ctx.getSharedPreferences("4square", 0);
         id = settings.getString("id", "");
         secret = settings.getString("secret", "");
     }

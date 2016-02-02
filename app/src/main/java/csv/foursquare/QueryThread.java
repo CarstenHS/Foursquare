@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,12 @@ public class QueryThread extends Thread
         url += "&client_id=" + query.getId();
         url += "&client_secret=" + query.getSecret();
         url += "&v=20140806";
-        url += "&query=" + query.getQuery();
+
+        String qStr;
+        try     {qStr = URLEncoder.encode(query.getQuery(), "UTF-8");}
+        catch   (UnsupportedEncodingException uee){qStr = query.getQuery();}
+
+        url += "&query=" + qStr;
 
         final List<Venue> venues = new ArrayList<>();
 
