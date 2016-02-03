@@ -64,6 +64,7 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
             mGoogleApiClient.disconnect();
         if(currentThread != null)
             currentThread.interrupt();
+        RequestQueue.getInstance().cancel();
     }
 
     @Override
