@@ -56,7 +56,7 @@ public class QueryThread extends Thread
             {
                 try
                 {
-                    if(response.getJSONObject("meta").getInt("code") == OK)
+                    if((response != null) && (response.getJSONObject("meta").getInt("code") == OK))
                     {
                         JSONArray ja = response.getJSONObject("response").getJSONArray("venues");
                         String name;
