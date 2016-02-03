@@ -57,6 +57,28 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         }
     }
 
+    public boolean isValidQuery(String s)
+    {
+        boolean valid = true;
+        if(s.equals(""))
+            return false;
+        else
+        {
+            valid &= (s.charAt(0) != '\n');
+
+            int i = 0;
+            // testing for only spaces
+            for (Character c : s.toCharArray())
+            {
+                if (c != ' ')
+                    break;
+                ++i;
+            }
+            valid &= (i != s.length());
+            return valid;
+        }
+    }
+
     public void cleanup()
     {
         if(mGoogleApiClient != null)

@@ -20,7 +20,7 @@ public class Presenter
 
     public void searchStringChanged(String s)
     {
-        if(s.equals("") == false)
+        if(model.isValidQuery(s))
         {
             view.setListviewVisibility(VenueAdapter.getInstance());
             model.query4Square(s);
@@ -33,4 +33,5 @@ public class Presenter
     {
         model.cleanup();
     }
+
 }
