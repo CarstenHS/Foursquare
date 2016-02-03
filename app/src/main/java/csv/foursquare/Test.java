@@ -19,7 +19,6 @@ import java.util.List;
 public class Test
 {
     private DummyModel dummyModel;
-    private MockContext mockContext;
     private Context ctx;
     private static String testResult = "";
 
@@ -27,12 +26,6 @@ public class Test
     {
         this.ctx = ctx;
         TestParser();
-    }
-
-    private interface OnQueryResultReadyCallbacks
-    {
-        public void OnQueryResultReady(List<Venue> venues);
-        public void OnQueryResultReady();
     }
 
     public class DummyModel implements OnQueryResultReadyCallbacks

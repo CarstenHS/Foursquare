@@ -15,8 +15,6 @@ public class Query
     private String query;
     private OnQueryResultReadyCallbacks listener;
 
-    public Query(){} //Todo: Delme
-
     public Query(Location l, String id, String secret,
                  Context ctx, String queryStr,
                  OnQueryResultReadyCallbacks listener)

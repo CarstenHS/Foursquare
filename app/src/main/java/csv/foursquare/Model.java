@@ -20,8 +20,6 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
     private GoogleApiClient mGoogleApiClient;
     private Location lastLoc;
     private Thread currentThread;
-
-    // TODO: REmove
     private String id;
     private String secret;
 
@@ -40,10 +38,8 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
         VenueAdapter.getInstance().init(ctx);
         RequestQueue.getInstance().init(ctx);
 
-        /* Todo: Remove */
-        SharedPreferences settings = ctx.getSharedPreferences("4square", 0);
-        id = settings.getString("id", "");
-        secret = settings.getString("secret", "");
+        id = "";
+        secret = "";
     }
 
     public void query4Square(String s)

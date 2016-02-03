@@ -38,7 +38,10 @@ public class VenueAdapter extends BaseAdapter
     public int getCount(){return data != null ? data.size() : 0;}
 
     @Override
-    public Object getItem(int position){return position;}
+    public Object getItem(int position)
+    {
+        return (data != null) ? data.get(position) : null;
+    }
 
     @Override
     public long getItemId(int position){return position;}

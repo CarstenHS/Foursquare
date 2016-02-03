@@ -2,18 +2,13 @@ package csv.foursquare;
 
 import android.location.Location;
 import android.widget.Toast;
-
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -68,30 +63,18 @@ public class QueryThread extends Thread
                             address = "";
                             dist = -1;
                             JSONObject jo = ja.getJSONObject(i);
-                            try
-                            {
-                                name = jo.getString("name");
-                            } catch (JSONException ignored)
-                            {
-                            }
-                            try
-                            {
-                                jo = jo.getJSONObject("location");
-                            } catch (JSONException ignored)
-                            {
-                            }
-                            try
-                            {
-                                address = jo.getString("address");
-                            } catch (JSONException ignored)
-                            {
-                            }
-                            try
-                            {
-                                dist = jo.getInt("distance");
-                            } catch (JSONException ignored)
-                            {
-                            }
+                            try{name = jo.getString("name");}
+                            catch (JSONException ignored){}
+
+                            try{jo = jo.getJSONObject("location");}
+                            catch (JSONException ignored){}
+
+                            try{address = jo.getString("address");}
+                            catch (JSONException ignored){}
+
+                            try{dist = jo.getInt("distance");}
+                            catch (JSONException ignored){}
+
                             venues.add(new Venue(name, address, dist));
                         }
                         query.getListener().OnQueryResultReady(venues);

@@ -20,6 +20,8 @@ public class Activity_Main extends AppCompatActivity implements I_View
         presenter = new Presenter(this);
         EditText etSearch = (EditText) findViewById(R.id.etSearchString);
 
+        //new Test(this);
+
         etSearch.addTextChangedListener(new TextWatcher()
         {
             @Override
