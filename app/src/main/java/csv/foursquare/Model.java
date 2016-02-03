@@ -48,14 +48,17 @@ public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClie
 
     public void query4Square(String s)
     {
-        Query q = new Query(lastLoc, id, secret, ctx, s, this);
-        if(currentThread != null)
-            currentThread.interrupt();
+        if(lastLoc != null)
+        {
+            Query q = new Query(lastLoc, id, secret, ctx, s, this);
+            if (currentThread != null)
+                currentThread.interrupt();
 
-        RequestQueue.getInstance().cancel();
+            RequestQueue.getInstance().cancel();
 
-        currentThread = new QueryThread(q);
-        currentThread.start();
+            currentThread = new QueryThread(q);
+            currentThread.start();
+        }
     }
 
     public void cleanup()
