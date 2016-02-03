@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class Activity_Main extends AppCompatActivity implements I_View
 {
@@ -35,12 +34,6 @@ public class Activity_Main extends AppCompatActivity implements I_View
             @Override
             public void afterTextChanged(Editable s) {}
         });
-    }
-
-    @Override
-    public void setSearchLabel(String text)
-    {
-        ((TextView)findViewById(R.id.etSearchLabel)).setText(text);
     }
 
     @Override

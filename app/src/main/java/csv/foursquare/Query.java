@@ -4,7 +4,8 @@ import android.content.Context;
 import android.location.Location;
 
 /**
- * Created by der_geiler on 01-02-2016.
+ * The Query object is responsible for parsing relevant query data for querying the Foursquare
+ * server.
  */
 public class Query
 {

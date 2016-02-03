@@ -1,12 +1,9 @@
 package csv.foursquare;
 
 import android.content.Context;
-import android.test.mock.MockContext;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by der_geiler on 03-02-2016.
+ * The Test class was needed as I couldn't get Instrumented test up and running.
+ * It tests the parsing of different JSON responses from the Foursquare server.
  */
 public class Test
 {

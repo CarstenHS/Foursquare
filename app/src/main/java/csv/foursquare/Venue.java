@@ -1,7 +1,8 @@
 package csv.foursquare;
 
 /**
- * Created by der_geiler on 01-02-2016.
+ * The Venue class is data holder for venue information for encapsulation and easy access when
+ * updating the VenueAdapter.
  */
 public class Venue
 {

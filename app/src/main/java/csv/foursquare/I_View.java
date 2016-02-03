@@ -3,10 +3,9 @@ package csv.foursquare;
 import android.widget.BaseAdapter;
 
 /**
- * Created by der_geiler on 29-01-2016.
+ * I_View for loose coupling to the Activity / view.
  */
 public interface I_View
 {
-    void setSearchLabel(String text);
     void setListviewVisibility(VenueAdapter adapter);
 }

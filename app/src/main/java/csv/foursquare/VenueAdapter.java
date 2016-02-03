@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by der_geiler on 31-01-2016.
+ * The Venueadaptor is responsible for displaying the listView items
  */
 public class VenueAdapter extends BaseAdapter
 {

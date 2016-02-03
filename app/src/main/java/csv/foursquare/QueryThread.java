@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by der_geiler on 01-02-2016.
+ * The QueryThread handles background server request and response and call backs the result to
+ * the model.
  */
 public class QueryThread extends Thread
 {

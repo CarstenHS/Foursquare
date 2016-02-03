@@ -12,7 +12,8 @@ import com.google.android.gms.location.LocationServices;
 import java.util.List;
 
 /**
- * Created by der_geiler on 29-01-2016.
+ * The Model is responsible for the data. For validation of query string and for initing foursquare
+ * venue search querying and getting the result.
  */
 public class Model implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnQueryResultReadyCallbacks
 {

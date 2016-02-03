@@ -5,7 +5,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by der_geiler on 02-02-2016.
+ * The request queue is a one point of entry reference for the HTTP volley request queue.
  */
 public class RequestQueue
 {
